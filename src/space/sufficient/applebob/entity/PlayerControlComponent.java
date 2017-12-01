@@ -33,6 +33,8 @@ public class PlayerControlComponent extends InputComponent {
             if (nextDir != Entity.Direction.NEUTRAL)
                 getEntity().setProperty("direction", nextDir);
         }
+
+        getEntity().getWorld().score1 = (int) getEntity().getProperty("score");
     }
 
     @Override

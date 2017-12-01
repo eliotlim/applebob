@@ -20,10 +20,10 @@ public class Launcher {
         Tile[][] testTile = {{Tile.HEAD}, {Tile.BODY}};
         Entity test = new Entity(testTile);
         {
-            test.setX(world.getHeight() / 2);
+            test.setX(world.getWidth() / 2 - 5);
             test.setY(world.getHeight() / 2);
 
-            test.isPlayer = true;
+            test.setProperty("isplayer", true);
 
             PlayerControlComponent testPlayerControlComponent = new PlayerControlComponent();
             test.attachComponent(testPlayerControlComponent);
@@ -39,16 +39,18 @@ public class Launcher {
             im.register(KeyEvent.VK_RIGHT, testPlayerControlComponent);
             im.register(KeyEvent.VK_ENTER, shooterComponent);
 
+            test.setProperty("score", 0);
+
             world.addEntity(test);
         }
 
         Tile[][] testTile2 = {{Tile.HEAD}, {Tile.BODY2}};
         Entity test2 = new Entity(testTile2);
         {
-            test2.setX(world.getHeight() / 2);
+            test2.setX(world.getWidth() / 2 + 5);
             test2.setY(world.getHeight() / 2);
 
-            test2.isPlayer = true;
+            test2.setProperty("isplayer", true);
 
             Player2ControlComponent testPlayerControlComponent = new Player2ControlComponent();
             test2.attachComponent(testPlayerControlComponent);
@@ -64,6 +66,8 @@ public class Launcher {
             im.register(KeyEvent.VK_S, testPlayerControlComponent);
             im.register(KeyEvent.VK_D, testPlayerControlComponent);
             im.register(KeyEvent.VK_SPACE, shooterComponent);
+
+            test2.setProperty("score", 0);
 
             world.addEntity(test2);
         }

@@ -45,7 +45,7 @@ public class ProjectileComponent extends EntityComponent {
         boolean collision = false;
         for (int r = 0; r < getEntity().getHeight(); r++) {
             for (int c = 0; c < getEntity().getWidth(); c++) {
-                if (Tile.isSolid(getEntity().getWorld().getCell(getEntity().getX() + c, getEntity().getY() + r))) {
+                if (Tile.isSolid(getEntity().getWorld().renderCell(getEntity().getX() + c, getEntity().getY() + r))) {
                     collision = true;
                 }
             }

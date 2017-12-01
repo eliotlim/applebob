@@ -30,7 +30,10 @@ public enum Tile {
                 t == ARROW_UP ||
                 t == ARROW_DOWN ||
                 t == ARROW_LEFT ||
-                t == ARROW_RIGHT;
+                t == ARROW_RIGHT ||
+                t == BODY ||
+                t == BODY2 ||
+                t == HEAD;
     }
 
     @Override

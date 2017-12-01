@@ -36,15 +36,19 @@ public class ExplosionComponent extends EntityComponent {
         int w = getEntity().getWidth();
         int h = getEntity().getHeight();
 
-        for (Iterator iter = getEntity().getWorld().getmEntities().iterator(); iter.hasNext();){
-            Entity bob = (Entity) iter.next();
-            if (!bob.isPlayer){
+        for (Entity bob : getEntity().getWorld().getmEntities()) {
+            if (bob.getProperty("isplayer") != null && !(Boolean) bob.getProperty("isplayer") ) {
                 continue;
             }
-            if (mFirer != bob) {
+            if (mFirer != bob && mFirer.getProperty("score") != null) {
                 if (bob.getX() >= x && bob.getX() < x + w && bob.getY() >= y && bob.getY() < y + h) {
-                    getEntity().getWorld().score1++;
+
+                    System.out.println("Score detected.");
+                    mFirer.setProperty("score", ((Integer) mFirer.getProperty("score")) + 1);
                 }
+            } else if (mFirer.getProperty("score") != null) {
+                System.out.println("Score detected.");
+                mFirer.setProperty("score", ((Integer) mFirer.getProperty("score")) - 1);
             }
 
         }
