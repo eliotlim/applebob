@@ -2,29 +2,34 @@ package space.sufficient.applebob.input;
 
 import space.sufficient.applebob.entity.InputComponent;
 
-import java.awt.*;
 import java.awt.event.KeyEvent;
 
-public class ConsoleInputManager extends InputManager implements KeyEventDispatcher {
+public class ConsoleInputManager extends InputManager  {
 
     public ConsoleInputManager() {
     }
 
-    public void attach() {
-        KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(this);
-    }
-
-    public void detach() {
-        KeyboardFocusManager.getCurrentKeyboardFocusManager().removeKeyEventDispatcher(this);
-    }
-
-    @Override
     public boolean dispatchKeyEvent(KeyEvent e) {
-        if (inputMap.containsKey(e)) {
+        if (inputMap.containsKey(e.getKeyCode())) {
             for (InputComponent ic : inputMap.get(e.getKeyCode())) {
                 ic.onInputEvent(e);
             }
         }
         return false;
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+        dispatchKeyEvent(e);
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        dispatchKeyEvent(e);
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        dispatchKeyEvent(e);
     }
 }

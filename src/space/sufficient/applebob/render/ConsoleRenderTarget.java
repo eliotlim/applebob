@@ -1,5 +1,6 @@
 package space.sufficient.applebob.render;
 
+import space.sufficient.applebob.input.InputManager;
 import space.sufficient.applebob.world.World;
 
 import java.io.PrintStream;
@@ -25,9 +26,9 @@ public class ConsoleRenderTarget extends RenderTarget {
         System.out.println("\033[H\033[2J");
         System.out.flush();
         w.onTick();
-        for (int y = w.getCameraY() - mViewportHeight/2; y < w.getCameraY() + mViewportHeight/2; y++) {
+        for (int y = w.getCameraY() - ( mViewportHeight/2); y < w.getCameraY() + ( mViewportHeight/2); y++) {
             StringBuilder line = new StringBuilder();
-            for (int x = w.getCameraX() - mViewportWidth/2; x < w.getCameraX() + mViewportWidth/2; x++) {
+            for (int x = w.getCameraX() - ( mViewportWidth/2); x < w.getCameraX() + ( mViewportWidth/2); x++) {
                 line.append(w.renderCell(x, y));
             }
             mTargetStream.println(line);
@@ -36,4 +37,11 @@ public class ConsoleRenderTarget extends RenderTarget {
         System.out.println("Took " + frameDuration + "ms - drawing at " + (1000L / frameDuration) );
         mFpsTime = System.currentTimeMillis();
     }
+
+    @Override
+    public void setInputManager(InputManager inputManager) {
+
+    }
+
+
 }

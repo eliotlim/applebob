@@ -7,4 +7,5 @@ public interface IGameWorld {
     Entity getFocus();
 
     Tile renderCell(int x, int y);
+    void setRendered(int x, int y, Tile value);
 }

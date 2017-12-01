@@ -64,7 +64,7 @@ public class ArrayWorld extends World {
             for (int r = 0; r < e.getHeight(); r++) {
                 for (int c = 0; c < e.getWidth(); c++) {
                     //TODO: Collision check
-                    mWorld[e.getY()+r][e.getX()+c] = e.getRepresentation()[r][c];
+                    setRendered(e.getX()+c, e.getY()+r, e.getRepresentation()[r][c]);
                 }
             }
         }
@@ -74,5 +74,10 @@ public class ArrayWorld extends World {
     public Tile renderCell(int x, int y) {
         if (boundsCheck(x, y)) return mWorld[y][x];
         return Tile.VOID;
+    }
+
+    @Override
+    public void setRendered(int x, int y, Tile val) {
+        if (boundsCheck(x, y)) mWorld[y][x] = val;
     }
 }

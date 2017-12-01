@@ -1,5 +1,6 @@
 package space.sufficient.applebob.render;
 
+import space.sufficient.applebob.input.InputManager;
 import space.sufficient.applebob.world.Tile;
 import space.sufficient.applebob.world.World;
 
@@ -60,6 +61,11 @@ public class HPCRenderTarget extends RenderTarget {
         long frameDuration = (System.currentTimeMillis() - mFpsTime);
         System.out.println("Took " + frameDuration + "ms - drawing at " + (1000L / frameDuration) );
         mFpsTime = System.currentTimeMillis();
+    }
+
+    @Override
+    public void setInputManager(InputManager inputManager) {
+        drawTextArea.addKeyListener(inputManager);
     }
 
 }

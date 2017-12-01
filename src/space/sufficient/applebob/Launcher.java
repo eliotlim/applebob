@@ -42,15 +42,19 @@ public class Launcher {
 
 
         InputManager im = new ConsoleInputManager();
-        im.attach();
         InputManager.setInstance(im);
-        im.register(KeyEvent.VK_W, testInputComponent);
+        im.register(KeyEvent.VK_UP, testInputComponent);
+        im.register(KeyEvent.VK_DOWN, testInputComponent);
+        im.register(KeyEvent.VK_LEFT, testInputComponent);
+        im.register(KeyEvent.VK_RIGHT, testInputComponent);
 
         world.addEntity(test);
+        world.setFocus(test);
 
-        RenderTarget renderTarget = new HPCRenderTarget(200, 60);
+        RenderTarget renderTarget = new HPCRenderTarget(150, 40);
+        renderTarget.setInputManager(im);
         SimpleRenderer renderer = new SimpleRenderer(renderTarget);
-        renderer.setFPS(3);
+        renderer.setFPS(30);
         renderer.attach(world);
 
         Thread renderThread = new Thread(renderer);

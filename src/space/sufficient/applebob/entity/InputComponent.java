@@ -11,7 +11,7 @@ public class InputComponent extends EntityComponent {
     protected void onTickImpl() {
         // TODO: Wait for player input
         tick++;
-        if ((tick % 20) == 0) {
+        if ((tick % 5) == 0) {
             if (moveUp) {
                 getEntity().setY(getEntity().getY()-1);
                 System.out.println("InputEvent Up!");
