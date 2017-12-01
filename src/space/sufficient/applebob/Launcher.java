@@ -1,9 +1,6 @@
 package space.sufficient.applebob;
 
-import space.sufficient.applebob.entity.Entity;
-import space.sufficient.applebob.entity.PlayerControlComponent;
-import space.sufficient.applebob.entity.RigidCollisionComponent;
-import space.sufficient.applebob.entity.ShooterComponent;
+import space.sufficient.applebob.entity.*;
 import space.sufficient.applebob.input.ConsoleInputManager;
 import space.sufficient.applebob.input.InputManager;
 import space.sufficient.applebob.render.*;
@@ -17,32 +14,59 @@ public class Launcher {
 
         World world = createRandomWorld();
 
-        Tile[][] testTile = {{Tile.HEAD}, {Tile.BODY}};
-        Entity test = new Entity(testTile);
-        test.setX(world.getHeight() / 2);
-        test.setY(world.getHeight() / 2);
-
-        test.isPlayer = true;
-
-        PlayerControlComponent testPlayerControlComponent = new PlayerControlComponent();
-        test.attachComponent(testPlayerControlComponent);
-
-        RigidCollisionComponent collisionComponent = new RigidCollisionComponent();
-        test.attachComponent(collisionComponent);
-
-        ShooterComponent shooterComponent = new ShooterComponent();
-        test.attachComponent(shooterComponent);
-
         InputManager im = new ConsoleInputManager();
         InputManager.setInstance(im);
-        im.register(KeyEvent.VK_UP, testPlayerControlComponent);
-        im.register(KeyEvent.VK_DOWN, testPlayerControlComponent);
-        im.register(KeyEvent.VK_LEFT, testPlayerControlComponent);
-        im.register(KeyEvent.VK_RIGHT, testPlayerControlComponent);
-        im.register(KeyEvent.VK_1, shooterComponent);
 
-        world.addEntity(test);
-        world.setFocus(test);
+        Tile[][] testTile = {{Tile.HEAD}, {Tile.BODY}};
+        Entity test = new Entity(testTile);
+        {
+            test.setX(world.getHeight() / 2);
+            test.setY(world.getHeight() / 2);
+
+            test.isPlayer = true;
+
+            PlayerControlComponent testPlayerControlComponent = new PlayerControlComponent();
+            test.attachComponent(testPlayerControlComponent);
+
+            RigidCollisionComponent collisionComponent = new RigidCollisionComponent();
+            test.attachComponent(collisionComponent);
+
+            ShooterComponent shooterComponent = new ShooterComponent();
+            test.attachComponent(shooterComponent);
+            im.register(KeyEvent.VK_UP, testPlayerControlComponent);
+            im.register(KeyEvent.VK_DOWN, testPlayerControlComponent);
+            im.register(KeyEvent.VK_LEFT, testPlayerControlComponent);
+            im.register(KeyEvent.VK_RIGHT, testPlayerControlComponent);
+            im.register(KeyEvent.VK_ENTER, shooterComponent);
+
+            world.addEntity(test);
+        }
+
+        Tile[][] testTile2 = {{Tile.HEAD}, {Tile.BODY2}};
+        Entity test2 = new Entity(testTile2);
+        {
+            test2.setX(world.getHeight() / 2);
+            test2.setY(world.getHeight() / 2);
+
+            test2.isPlayer = true;
+
+            Player2ControlComponent testPlayerControlComponent = new Player2ControlComponent();
+            test2.attachComponent(testPlayerControlComponent);
+
+            RigidCollisionComponent collisionComponent = new RigidCollisionComponent();
+            test2.attachComponent(collisionComponent);
+
+            Shooter2Component shooterComponent = new Shooter2Component();
+            test2.attachComponent(shooterComponent);
+
+            im.register(KeyEvent.VK_W, testPlayerControlComponent);
+            im.register(KeyEvent.VK_A, testPlayerControlComponent);
+            im.register(KeyEvent.VK_S, testPlayerControlComponent);
+            im.register(KeyEvent.VK_D, testPlayerControlComponent);
+            im.register(KeyEvent.VK_SPACE, shooterComponent);
+
+            world.addEntity(test2);
+        }
 
         RenderTarget renderTarget = new HPCRenderTarget(150, 40);
         renderTarget.setInputManager(im);

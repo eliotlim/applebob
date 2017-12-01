@@ -19,6 +19,11 @@ public class ArrayWorld extends World {
                 mWorld[r][c] = Tile.FLOOR;
             }
         }
+
+        Entity mapCenter = new Entity(new Tile[][]{});
+        mapCenter.setX(getWidth()/2);
+        mapCenter.setY(getHeight()/2);
+        setFocus(mapCenter);
     }
 
 

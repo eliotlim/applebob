@@ -6,6 +6,7 @@ public enum Tile {
     VOID("."),
     HEAD("O"),
     BODY("Å"),
+    BODY2("B"),
     ARROW_UP("↥"),
     ARROW_DOWN("↧"),
     ARROW_LEFT("↤"),

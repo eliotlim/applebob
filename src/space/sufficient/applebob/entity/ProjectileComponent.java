@@ -21,7 +21,7 @@ public class ProjectileComponent extends EntityComponent {
             Entity explosionEntity = new Entity(new Tile[explosionSize][explosionSize]);
             explosionEntity.setX(getEntity().getX() - explosionSize / 2);
             explosionEntity.setY(getEntity().getY() - explosionSize / 2);
-            ExplosionComponent explosionComponent = new ExplosionComponent(explosionSize);
+            ExplosionComponent explosionComponent = new ExplosionComponent(getEntity(), explosionSize);
             explosionEntity.attachComponent(explosionComponent);
             // Spawn explosion
             getEntity().getWorld().addEntity(explosionEntity);

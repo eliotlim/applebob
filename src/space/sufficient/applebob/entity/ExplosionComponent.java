@@ -9,9 +9,11 @@ public class ExplosionComponent extends EntityComponent {
     private int mRadius;
     private static int sDuration = 10;
     private int mDuration = 0;
+    private Entity mFirer;
 
-    public ExplosionComponent(int diameter) {
+    public ExplosionComponent(Entity firer, int diameter) {
         mRadius = diameter;
+        mFirer = firer;
     }
 
 
@@ -39,9 +41,12 @@ public class ExplosionComponent extends EntityComponent {
             if (!bob.isPlayer){
                 continue;
             }
-            if (bob.getX() >= x && bob.getX() < x+w && bob.getY() >= y && bob.getY()<y+h){
-                getEntity().getWorld().score1++;
+            if (mFirer != bob) {
+                if (bob.getX() >= x && bob.getX() < x + w && bob.getY() >= y && bob.getY() < y + h) {
+                    getEntity().getWorld().score1++;
+                }
             }
+
         }
 
         if (mDuration > sDuration) {

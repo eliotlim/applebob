@@ -5,7 +5,7 @@ import space.sufficient.applebob.world.Tile;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 
-public class ShooterComponent extends InputComponent {
+public class Shooter2Component extends InputComponent {
     private boolean shoot = false;
     private long mTick = 0;
 
@@ -63,13 +63,13 @@ public class ShooterComponent extends InputComponent {
             switch (ke.getID()) {
                 case KeyEvent.KEY_PRESSED:
                     // If Shoot key is pressed
-                    if (ke.getKeyCode() == KeyEvent.VK_ENTER) {
+                    if (ke.getKeyCode() == KeyEvent.VK_SPACE) {
                         shoot = true;
                     }
                     break;
                 case KeyEvent.KEY_RELEASED:
                     // If Shoot key is released
-                    if (ke.getKeyCode() == KeyEvent.VK_ENTER) {
+                    if (ke.getKeyCode() == KeyEvent.VK_SPACE) {
                         shoot = false;
                     }
             }
