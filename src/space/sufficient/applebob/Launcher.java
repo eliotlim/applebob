@@ -2,6 +2,7 @@ package space.sufficient.applebob;
 
 import space.sufficient.applebob.entity.Entity;
 import space.sufficient.applebob.entity.PlayerControlComponent;
+import space.sufficient.applebob.entity.RigidCollisionComponent;
 import space.sufficient.applebob.entity.ShooterComponent;
 import space.sufficient.applebob.input.ConsoleInputManager;
 import space.sufficient.applebob.input.InputManager;
@@ -15,6 +16,7 @@ public class Launcher {
     public static void main(String[] args) {
         World world = new ArrayWorld(80, 30);
 
+        // Populate the world with random blocks
         Random rand = new Random(1000);
         for (int r = 0; r < world.getHeight(); r++) {
             for (int c = 0; c < world.getWidth(); c++) {
@@ -33,13 +35,26 @@ public class Launcher {
                 world.setCell(c, r, t);
             }
         }
+        // Clear the center area
+        for (int r = 0; r < world.getHeight(); r++) {
+            for (int c = 0; c < world.getWidth(); c++) {
+                if (Math.abs(r-world.getHeight()/2) < 10 &&
+                        Math.abs(c-world.getWidth()/2) < 10)
+                world.setCell(c, r, Tile.FLOOR);
+            }
+        }
 
         Tile[][] testTile = {{Tile.HEAD}, {Tile.BODY}};
         Entity test = new Entity(testTile);
         test.setX(world.getHeight()/2);
         test.setY(world.getHeight()/2);
+
         PlayerControlComponent testPlayerControlComponent = new PlayerControlComponent();
         test.attachComponent(testPlayerControlComponent);
+
+        RigidCollisionComponent collisionComponent = new RigidCollisionComponent();
+        test.attachComponent(collisionComponent);
+
         ShooterComponent shooterComponent = new ShooterComponent();
         test.attachComponent(shooterComponent);
 
