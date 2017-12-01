@@ -9,7 +9,13 @@ public enum Tile {
     ARROW_UP("↥"),
     ARROW_DOWN("↧"),
     ARROW_LEFT("↤"),
-    ARROW_RIGHT("↦");
+    ARROW_RIGHT("↦"),
+    EXP_1("."),
+    EXP_2("o"),
+    EXP_3("@"),
+    EXP_4("!"),
+    EXP_5("."),
+    ;
 
     private final String repr;
 

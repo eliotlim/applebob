@@ -21,7 +21,7 @@ public class Launcher {
         for (int r = 0; r < world.getHeight(); r++) {
             for (int c = 0; c < world.getWidth(); c++) {
                 Tile t;
-                switch(rand.nextInt( 10)) {
+                switch (rand.nextInt(10)) {
                     case 0:
                         t = Tile.WALL;
                         break;
@@ -38,16 +38,16 @@ public class Launcher {
         // Clear the center area
         for (int r = 0; r < world.getHeight(); r++) {
             for (int c = 0; c < world.getWidth(); c++) {
-                if (Math.abs(r-world.getHeight()/2) < 10 &&
-                        Math.abs(c-world.getWidth()/2) < 10)
-                world.setCell(c, r, Tile.FLOOR);
+                if (Math.abs(r - world.getHeight() / 2) < 10 &&
+                        Math.abs(c - world.getWidth() / 2) < 10)
+                    world.setCell(c, r, Tile.FLOOR);
             }
         }
 
         Tile[][] testTile = {{Tile.HEAD}, {Tile.BODY}};
         Entity test = new Entity(testTile);
-        test.setX(world.getHeight()/2);
-        test.setY(world.getHeight()/2);
+        test.setX(world.getHeight() / 2);
+        test.setY(world.getHeight() / 2);
 
         PlayerControlComponent testPlayerControlComponent = new PlayerControlComponent();
         test.attachComponent(testPlayerControlComponent);
@@ -57,7 +57,6 @@ public class Launcher {
 
         ShooterComponent shooterComponent = new ShooterComponent();
         test.attachComponent(shooterComponent);
-
 
         InputManager im = new ConsoleInputManager();
         InputManager.setInstance(im);

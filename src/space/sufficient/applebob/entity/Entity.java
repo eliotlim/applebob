@@ -28,6 +28,10 @@ public class Entity {
         return mRepr.clone();
     }
 
+    public void setRepresentation(Tile[][] repr) {
+        this.mRepr = repr;
+    }
+
     public int getX() {
         return mPosX;
     }

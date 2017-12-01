@@ -15,12 +15,9 @@ public class RigidCollisionComponent extends EntityComponent {
         mPrevX = mTempX;
         mPrevY = mTempY;
 
-        System.out.println("Collision Check");
-
         if (collisionCheck()) {
             getEntity().setX(mPrevX);
             getEntity().setY(mPrevY);
-            System.out.println("Object collision detected.");
         }
 
         mTempX = getEntity().getX();
