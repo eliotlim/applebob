@@ -2,7 +2,8 @@ package space.sufficient.applebob.world;
 
 public enum Tile {
     FLOOR(" "),
-    WALL("#");
+    WALL("#"),
+    VOID("X");
 
     private final String repr;
 
