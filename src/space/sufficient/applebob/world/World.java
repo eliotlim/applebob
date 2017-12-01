@@ -5,6 +5,8 @@ import space.sufficient.applebob.entity.Entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.lang.Math.floor;
+
 public abstract class World implements IWorld, IGameWorld {
 
     protected List<Entity> mEntities = new ArrayList<>();
@@ -45,12 +47,12 @@ public abstract class World implements IWorld, IGameWorld {
 
     public int getCameraX() {
         // TODO: Set Focus
-        return focus.getX() / 2;
+        return focus.getX();
     }
 
     public int getCameraY() {
         // TODO: Set Focus
-        return focus.getY() / 2;
+        return focus.getY();
     }
 
     @Override

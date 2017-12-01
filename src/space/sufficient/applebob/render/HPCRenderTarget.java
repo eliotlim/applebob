@@ -15,34 +15,39 @@ public class HPCRenderTarget extends RenderTarget {
     private int mViewportHeight, mViewportWidth;
     private long mFpsTime;
     JTextArea drawTextArea;
-    Random r;
-    JTextPane pane;
+    JSlider slider;
 
     public HPCRenderTarget(int width, int height) {
         this.mViewportWidth = width;
         this.mViewportHeight = height;
         JFrame f = new JFrame("HPC");
         f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        //f.setPreferredSize(new Dimension(1280,800));
-//        JPanel cPanel = new JPanel(new BorderLayout());
+
         JPanel cPanel = new JPanel();
+        cPanel.setLayout(new BoxLayout(cPanel, BoxLayout.PAGE_AXIS));
         f.getContentPane().add(cPanel);
+
         drawTextArea = new JTextArea("",height,width);
-
-//        pane = new JTextPane();
-//        Font font = new Font(Font.MONOSPACED, Font.PLAIN, 14);
-//        pane.setFont(font);
-//        cPanel.add(pane, BorderLayout.CENTER);
-
         drawTextArea.setFont(new Font("monospaced", Font.PLAIN, 12));
+        drawTextArea.setBackground(new Color(0,0,0,255));
+        drawTextArea.setForeground(new Color(255,255,255,255));
         drawTextArea.setEditable(false);
-        cPanel.add(drawTextArea);
 
-            //pane.setText("1uh2qo3uehqo3uehaqwourhawoefbnawefabwoefuabwoef");
-            //pane.getStyledDocument().insertString(0,"1920139q934hrq3o4uhqwerhfqwe\nfuoqefhqowuefhqwouefhqwoeufhqwef\nqwheofuqhweofuqhwefouqhwefouqw23", pane.addStyle("cikor styke", null));
+        cPanel.add(drawTextArea);
+        JLabel sliderLabel = new JLabel("Retro --->", JLabel.CENTER);
+        sliderLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        cPanel.add(sliderLabel);
+        slider = new JSlider(0,155,0);
+        slider.addChangeListener(e -> sliderChanged());
+        cPanel.add(slider);
+
         f.pack();
         f.setVisible(true);
-        r = new Random(1);
+    }
+
+    public void sliderChanged(){
+        drawTextArea.setBackground(new Color(0,0,0,255-slider.getValue()));
+        drawTextArea.setForeground(new Color(255,255,255,255-slider.getValue()));
     }
 
     @Override
@@ -51,12 +56,11 @@ public class HPCRenderTarget extends RenderTarget {
 
         StringBuilder line = new StringBuilder();
         for (int y = w.getCameraY() - mViewportHeight/2; y < w.getCameraY() + mViewportHeight/2; y++) {
-            for (int x = w.getCameraX() - mViewportWidth/2; x < w.getCameraX() + mViewportWidth/2; x++) {
+            for (int x = w.getCameraX() - mViewportWidth / 2; x < w.getCameraX() + mViewportWidth / 2; x++) {
                 line.append(w.renderCell(x, y));
             }
             line.append("\n");
         }
-
         drawTextArea.setText(line.toString());
         long frameDuration = (System.currentTimeMillis() - mFpsTime);
         System.out.println("Took " + frameDuration + "ms - drawing at " + (1000L / frameDuration) );
