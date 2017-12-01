@@ -1,6 +1,7 @@
 package space.sufficient.applebob.input;
 
 import space.sufficient.applebob.entity.InputComponent;
+import space.sufficient.applebob.entity.PlayerControlComponent;
 
 import java.awt.event.KeyEvent;
 

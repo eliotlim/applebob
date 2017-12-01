@@ -3,9 +3,10 @@ package space.sufficient.applebob.world;
 public enum Tile {
     FLOOR(" "),
     WALL("#"),
-    VOID("X"),
+    VOID("."),
     HEAD("O"),
-    BODY("⤧");
+    BODY("⤧"),
+    ARROW_RIGHT("↦");
 
     private final String repr;
 

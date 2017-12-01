@@ -3,6 +3,7 @@ package space.sufficient.applebob.world;
 import space.sufficient.applebob.entity.Entity;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import static java.lang.Math.floor;
@@ -10,6 +11,8 @@ import static java.lang.Math.floor;
 public abstract class World implements IWorld, IGameWorld {
 
     protected List<Entity> mEntities = new ArrayList<>();
+    protected List<Entity> mEntityAddQueue = new LinkedList<>();
+    protected List<Entity> mEntityDelQueue = new LinkedList<>();
     private long tick = 0;
 
     private Entity focus;
@@ -28,15 +31,19 @@ public abstract class World implements IWorld, IGameWorld {
     protected abstract boolean boundsCheck(int x, int y);
 
     public void addEntity(Entity entity) {
-        mEntities.add(entity);
+        mEntityAddQueue.add(entity);
+        entity.setWorld(this);
     }
 
     public void removeEntity(Entity entity) {
-        mEntities.remove(entity);
+        mEntityDelQueue.add(entity);
+        entity.setWorld(null);
     }
 
     public void onTick() {
         tick++;
+        mEntities.addAll(mEntityAddQueue);
+        mEntities.removeAll(mEntityDelQueue);
         for (Entity e : mEntities) {
             e.onTick();
         }
@@ -46,12 +53,10 @@ public abstract class World implements IWorld, IGameWorld {
     public abstract void onTickImpl();
 
     public int getCameraX() {
-        // TODO: Set Focus
         return focus.getX();
     }
 
     public int getCameraY() {
-        // TODO: Set Focus
         return focus.getY();
     }
 

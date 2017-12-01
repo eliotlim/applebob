@@ -1,7 +1,8 @@
 package space.sufficient.applebob;
 
 import space.sufficient.applebob.entity.Entity;
-import space.sufficient.applebob.entity.InputComponent;
+import space.sufficient.applebob.entity.PlayerControlComponent;
+import space.sufficient.applebob.entity.ShooterComponent;
 import space.sufficient.applebob.input.ConsoleInputManager;
 import space.sufficient.applebob.input.InputManager;
 import space.sufficient.applebob.render.*;
@@ -37,16 +38,19 @@ public class Launcher {
         Entity test = new Entity(testTile);
         test.setX(world.getHeight()/2);
         test.setY(world.getHeight()/2);
-        InputComponent testInputComponent = new InputComponent();
-        test.attachComponent(testInputComponent);
+        PlayerControlComponent testPlayerControlComponent = new PlayerControlComponent();
+        test.attachComponent(testPlayerControlComponent);
+        ShooterComponent shooterComponent = new ShooterComponent();
+        test.attachComponent(shooterComponent);
 
 
         InputManager im = new ConsoleInputManager();
         InputManager.setInstance(im);
-        im.register(KeyEvent.VK_UP, testInputComponent);
-        im.register(KeyEvent.VK_DOWN, testInputComponent);
-        im.register(KeyEvent.VK_LEFT, testInputComponent);
-        im.register(KeyEvent.VK_RIGHT, testInputComponent);
+        im.register(KeyEvent.VK_UP, testPlayerControlComponent);
+        im.register(KeyEvent.VK_DOWN, testPlayerControlComponent);
+        im.register(KeyEvent.VK_LEFT, testPlayerControlComponent);
+        im.register(KeyEvent.VK_RIGHT, testPlayerControlComponent);
+        im.register(KeyEvent.VK_1, shooterComponent);
 
         world.addEntity(test);
         world.setFocus(test);

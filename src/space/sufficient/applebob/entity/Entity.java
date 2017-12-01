@@ -1,6 +1,7 @@
 package space.sufficient.applebob.entity;
 
 import space.sufficient.applebob.world.Tile;
+import space.sufficient.applebob.world.World;
 
 import java.util.ArrayList;
 
@@ -8,6 +9,7 @@ public class Entity {
     private long entityID;
     private ArrayList<EntityComponent> mComponents;
 
+    private World mWorld;
     private int mPosX, mPosY, mWidth, mHeight;
     private Tile[][] mRepr;
 
@@ -65,4 +67,8 @@ public class Entity {
     public int getWidth() {
         return mWidth;
     }
+
+    public void setWorld(World world) { this.mWorld = world; }
+
+    public World getWorld() { return mWorld; }
 }
