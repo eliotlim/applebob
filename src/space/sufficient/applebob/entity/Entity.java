@@ -4,10 +4,12 @@ import space.sufficient.applebob.world.Tile;
 import space.sufficient.applebob.world.World;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Entity {
     private long entityID;
     private ArrayList<EntityComponent> mComponents;
+    private HashMap<String, Object> mProperties = new HashMap<>();
 
     private World mWorld;
     private int mPosX, mPosY, mWidth, mHeight;
@@ -75,4 +77,17 @@ public class Entity {
     public void setWorld(World world) { this.mWorld = world; }
 
     public World getWorld() { return mWorld; }
+
+    public void setProperty(String property, Object o) {
+        mProperties.put(property, o);
+    }
+
+    public Object getProperty(String property) {
+        if (mProperties.containsKey(property))
+            return mProperties.get(property);
+        else return null;
+    }
+
+
+    enum Direction{UP, DOWN, LEFT, RIGHT, NEUTRAL};
 }

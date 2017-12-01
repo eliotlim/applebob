@@ -14,35 +14,8 @@ import java.util.Random;
 
 public class Launcher {
     public static void main(String[] args) {
-        World world = new ArrayWorld(80, 30);
 
-        // Populate the world with random blocks
-        Random rand = new Random(1000);
-        for (int r = 0; r < world.getHeight(); r++) {
-            for (int c = 0; c < world.getWidth(); c++) {
-                Tile t;
-                switch (rand.nextInt(10)) {
-                    case 0:
-                        t = Tile.WALL;
-                        break;
-                    case 1:
-                        t = Tile.FLOOR;
-                        break;
-                    default:
-                        t = Tile.FLOOR;
-                        break;
-                }
-                world.setCell(c, r, t);
-            }
-        }
-        // Clear the center area
-        for (int r = 0; r < world.getHeight(); r++) {
-            for (int c = 0; c < world.getWidth(); c++) {
-                if (Math.abs(r - world.getHeight() / 2) < 10 &&
-                        Math.abs(c - world.getWidth() / 2) < 10)
-                    world.setCell(c, r, Tile.FLOOR);
-            }
-        }
+        World world = createRandomWorld();
 
         Tile[][] testTile = {{Tile.HEAD}, {Tile.BODY}};
         Entity test = new Entity(testTile);
@@ -77,5 +50,38 @@ public class Launcher {
 
         Thread renderThread = new Thread(renderer);
         renderThread.start();
+    }
+
+    public static World createRandomWorld() {
+        World world = new ArrayWorld(80, 30);
+
+        // Populate the world with random blocks
+        Random rand = new Random();
+        for (int r = 0; r < world.getHeight(); r++) {
+            for (int c = 0; c < world.getWidth(); c++) {
+                Tile t;
+                switch (rand.nextInt(10)) {
+                    case 0:
+                        t = Tile.WALL;
+                        break;
+                    case 1:
+                        t = Tile.FLOOR;
+                        break;
+                    default:
+                        t = Tile.FLOOR;
+                        break;
+                }
+                world.setCell(c, r, t);
+            }
+        }
+        // Clear the center area
+        for (int r = 0; r < world.getHeight(); r++) {
+            for (int c = 0; c < world.getWidth(); c++) {
+                if (Math.abs(r - world.getHeight() / 2) < 10 &&
+                        Math.abs(c - world.getWidth() / 2) < 10)
+                    world.setCell(c, r, Tile.FLOOR);
+            }
+        }
+        return world;
     }
 }

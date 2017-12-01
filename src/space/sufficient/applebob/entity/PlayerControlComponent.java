@@ -4,7 +4,7 @@ import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 
 public class PlayerControlComponent extends InputComponent {
-    private boolean moveUp, moveDown, moveLeft, moveRight;
+    Entity.Direction nextDir = Entity.Direction.NEUTRAL;
     private long tick = 0;
 
     @Override
@@ -13,19 +13,25 @@ public class PlayerControlComponent extends InputComponent {
         tick--;
         if (tick <= 0) {
             // If movement cooldown has elapsed
-            if (moveUp) {
-                getEntity().setY(getEntity().getY() - 1);
-                tick = 7;
-            } else if (moveDown) {
-                getEntity().setY(getEntity().getY() + 1);
-                tick = 7;
-            }else if (moveRight) {
-                getEntity().setX(getEntity().getX() + 1);
-                tick = 4;
-            } else if (moveLeft) {
-                getEntity().setX(getEntity().getX() - 1);
-                tick = 4;
+            switch(nextDir) {
+                case UP:
+                    getEntity().setY(getEntity().getY() - 1);
+                    tick = 7;
+                    break;
+                case DOWN:
+                    getEntity().setY(getEntity().getY() + 1);
+                    tick = 7;
+                    break;
+                case LEFT:
+                    getEntity().setX(getEntity().getX() - 1);
+                    tick = 4;
+                    break;
+                case RIGHT:
+                    getEntity().setX(getEntity().getX() + 1);
+                    tick = 4;
             }
+            if (nextDir != Entity.Direction.NEUTRAL)
+                getEntity().setProperty("direction", nextDir);
         }
     }
 
@@ -44,31 +50,26 @@ public class PlayerControlComponent extends InputComponent {
             KeyEvent ke = (KeyEvent) e;
             switch (ke.getID()) {
                 case KeyEvent.KEY_PRESSED:
-                    if (ke.getKeyCode() == KeyEvent.VK_UP) {
-                        moveUp = true;
-                        moveDown = moveLeft = moveRight = false;
-                    } else if (ke.getKeyCode() == KeyEvent.VK_DOWN) {
-                        moveDown = true;
-                        moveUp = moveLeft = moveRight = false;
-                    } else if (ke.getKeyCode() == KeyEvent.VK_LEFT) {
-                        moveLeft = true;
-                        moveUp = moveDown = moveRight = false;
-                    } else if (ke.getKeyCode() == KeyEvent.VK_RIGHT) {
-                        moveRight = true;
-                        moveUp = moveDown = moveLeft = false;
-                    }
+                    nextDir = getDirection(ke.getKeyCode());
                     break;
                 case KeyEvent.KEY_RELEASED:
-                    if (ke.getKeyCode() == KeyEvent.VK_UP) {
-                        moveUp = false;
-                    } else if (ke.getKeyCode() == KeyEvent.VK_DOWN) {
-                        moveDown = false;
-                    } else if (ke.getKeyCode() == KeyEvent.VK_LEFT) {
-                        moveLeft = false;
-                    } else if (ke.getKeyCode() == KeyEvent.VK_RIGHT) {
-                        moveRight = false;
+                    if (nextDir == getDirection(ke.getKeyCode())) {
+                        nextDir = Entity.Direction.NEUTRAL;
                     }
             }
         }
+    }
+    
+    public Entity.Direction getDirection(int keyCode) {
+        if (keyCode == KeyEvent.VK_UP) {
+            return Entity.Direction.UP;
+        } else if (keyCode == KeyEvent.VK_DOWN) {
+            return Entity.Direction.DOWN;
+        } else if (keyCode == KeyEvent.VK_LEFT) {
+            return Entity.Direction.LEFT;
+        } else if (keyCode == KeyEvent.VK_RIGHT) {
+            return Entity.Direction.RIGHT;
+        }
+        return Entity.Direction.NEUTRAL;
     }
 }

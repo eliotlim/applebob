@@ -20,13 +20,29 @@ public class ShooterComponent extends InputComponent {
 
             // Create a new Arrow Entity.
             // TODO: Player Direction
-            Entity arrow = new Entity(new Tile[][]{{Tile.ARROW_RIGHT}});
-            arrow.setX(getEntity().getX()+1);
-            arrow.setY(getEntity().getY());
+            Object od = getEntity().getProperty("direction");
+            if (od != null && od instanceof Entity.Direction) {
+                Entity.Direction d = (Entity.Direction) od;
+                if (d == Entity.Direction.NEUTRAL) d = Entity.Direction.RIGHT;
 
-            // TODO: Projectile Speed
-            arrow.attachComponent(new ProjectileComponent(1, 0));
-            getEntity().getWorld().addEntity(arrow);
+                Tile t = getArrow(d);
+                Entity arrow = new Entity(new Tile[][]{{t}});
+
+                int velX = 0, velY = 0;
+                if (d == Entity.Direction.UP) velY = -1;
+                else if (d == Entity.Direction.DOWN) velY = 1;
+
+                if (d == Entity.Direction.LEFT) velX = -1;
+                else if (d == Entity.Direction.RIGHT) velX = 1;
+
+
+                arrow.setX(getEntity().getX() + velX);
+                arrow.setY(getEntity().getY() + velY);
+
+                // TODO: Projectile Speed
+                arrow.attachComponent(new ProjectileComponent(velX, velY));
+                getEntity().getWorld().addEntity(arrow);
+            }
         }
     }
 
@@ -57,6 +73,21 @@ public class ShooterComponent extends InputComponent {
                         shoot = false;
                     }
             }
+        }
+    }
+
+    public Tile getArrow(Entity.Direction dir) {
+        switch (dir) {
+            case UP:
+                return Tile.ARROW_UP;
+            case DOWN:
+                return Tile.ARROW_DOWN;
+            case LEFT:
+                return Tile.ARROW_LEFT;
+            case RIGHT:
+                return Tile.ARROW_RIGHT;
+            default:
+                return null;
         }
     }
 }
