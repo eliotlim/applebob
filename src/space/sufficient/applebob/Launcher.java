@@ -13,18 +13,18 @@ import java.util.Random;
 
 public class Launcher {
     public static void main(String[] args) {
-        World world = new ArrayWorld(20, 10);
+        World world = new ArrayWorld(80, 30);
 
         Random rand = new Random(1000);
         for (int r = 0; r < world.getHeight(); r++) {
             for (int c = 0; c < world.getWidth(); c++) {
                 Tile t;
-                switch(rand.nextInt( 5)) {
+                switch(rand.nextInt( 10)) {
                     case 0:
                         t = Tile.WALL;
                         break;
                     case 1:
-                        t = Tile.VOID;
+                        t = Tile.FLOOR;
                         break;
                     default:
                         t = Tile.FLOOR;

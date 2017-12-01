@@ -10,21 +10,21 @@ public class PlayerControlComponent extends InputComponent {
     @Override
     protected void onTickImpl() {
         // TODO: Wait for player input
-        tick++;
-        if (tick > 10) {
-            tick = 0;
+        tick--;
+        if (tick <= 0) {
             // If movement cooldown has elapsed
             if (moveUp) {
-                getEntity().setY(getEntity().getY()-1);
+                getEntity().setY(getEntity().getY() - 1);
+                tick = 7;
             } else if (moveDown) {
-                getEntity().setY(getEntity().getY()+1);
-            } else if (moveRight) {
-                getEntity().setX(getEntity().getX()+1);
+                getEntity().setY(getEntity().getY() + 1);
+                tick = 7;
+            }else if (moveRight) {
+                getEntity().setX(getEntity().getX() + 1);
+                tick = 4;
             } else if (moveLeft) {
-                getEntity().setX(getEntity().getX()-1);
-            }
-            if (moveDown||moveUp||moveLeft||moveRight) {
-                System.out.println("Moved!");
+                getEntity().setX(getEntity().getX() - 1);
+                tick = 4;
             }
         }
     }
@@ -41,7 +41,7 @@ public class PlayerControlComponent extends InputComponent {
 
     public void onInputEvent(InputEvent e) {
         if (e instanceof KeyEvent) {
-            KeyEvent ke = (KeyEvent)e;
+            KeyEvent ke = (KeyEvent) e;
             switch (ke.getID()) {
                 case KeyEvent.KEY_PRESSED:
                     if (ke.getKeyCode() == KeyEvent.VK_UP) {
@@ -54,10 +54,10 @@ public class PlayerControlComponent extends InputComponent {
                         moveLeft = true;
                         moveUp = moveDown = moveRight = false;
                     } else if (ke.getKeyCode() == KeyEvent.VK_RIGHT) {
-                        moveRight= true;
+                        moveRight = true;
                         moveUp = moveDown = moveLeft = false;
                     }
-                break;
+                    break;
                 case KeyEvent.KEY_RELEASED:
                     if (ke.getKeyCode() == KeyEvent.VK_UP) {
                         moveUp = false;
@@ -66,7 +66,7 @@ public class PlayerControlComponent extends InputComponent {
                     } else if (ke.getKeyCode() == KeyEvent.VK_LEFT) {
                         moveLeft = false;
                     } else if (ke.getKeyCode() == KeyEvent.VK_RIGHT) {
-                        moveRight= false;
+                        moveRight = false;
                     }
             }
         }
