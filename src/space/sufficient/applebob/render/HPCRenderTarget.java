@@ -88,7 +88,8 @@ public class HPCRenderTarget extends RenderTarget {
     @Override
     public void draw(World w) {
         w.onTick();
-
+        score1.setText(Integer.toString(w.score1));
+        score2.setText(Integer.toString(w.score2));
         StringBuilder line = new StringBuilder();
         for (int y = w.getCameraY() - mViewportHeight/2; y < w.getCameraY() + mViewportHeight/2; y++) {
             for (int x = w.getCameraX() - mViewportWidth / 2; x < w.getCameraX() + mViewportWidth / 2; x++) {

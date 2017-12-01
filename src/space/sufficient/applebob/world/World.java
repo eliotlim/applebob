@@ -14,6 +14,12 @@ public abstract class World implements IWorld, IGameWorld {
     protected List<Entity> mEntityAddQueue = new LinkedList<>();
     protected List<Entity> mEntityDelQueue = new LinkedList<>();
     private long tick = 0;
+    public int score1 = 0;
+    public int score2 = 0;
+
+    public List<Entity> getmEntities() {
+        return mEntities;
+    }
 
     private Entity focus;
 

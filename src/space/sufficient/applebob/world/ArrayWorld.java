@@ -30,6 +30,7 @@ public class ArrayWorld extends World {
 
     @Override
     public void setCell(int x, int y, Tile val) {
+        if (!boundsCheck(x,y)) return;
         mWorld[y][x] = val;
         mBase[y][x] = val;
     }

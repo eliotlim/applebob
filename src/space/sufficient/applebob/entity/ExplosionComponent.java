@@ -2,6 +2,8 @@ package space.sufficient.applebob.entity;
 
 import space.sufficient.applebob.world.Tile;
 
+import java.util.Iterator;
+
 public class ExplosionComponent extends EntityComponent {
 
     private int mRadius;
@@ -27,7 +29,26 @@ public class ExplosionComponent extends EntityComponent {
         }
         getEntity().setRepresentation(repr);
 
+        int x = getEntity().getX();
+        int y = getEntity().getY();
+        int w = getEntity().getWidth();
+        int h = getEntity().getHeight();
+
+        for (Iterator iter = getEntity().getWorld().getmEntities().iterator(); iter.hasNext();){
+            Entity bob = (Entity) iter.next();
+            if (bob.getX() >= x && bob.getX() < x+w && bob.getY() >= y && bob.getY()<y+h){
+                getEntity().getWorld().score1++;
+            }
+        }
+
         if (mDuration > sDuration) {
+
+
+            for (int i = x; i< x+w; i++){
+                for (int j = y; j< y+h; j++){
+                    getEntity().getWorld().setCell(i,j,Tile.FLOOR);
+                }
+            }
             getEntity().getWorld().removeEntity(getEntity());
         }
     }
