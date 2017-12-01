@@ -43,7 +43,9 @@ public abstract class World implements IWorld, IGameWorld {
     public void onTick() {
         tick++;
         mEntities.addAll(mEntityAddQueue);
+        mEntityAddQueue.clear();
         mEntities.removeAll(mEntityDelQueue);
+        mEntityDelQueue.clear();
         for (Entity e : mEntities) {
             e.onTick();
         }
