@@ -21,6 +21,7 @@ public class HPCRenderTarget extends RenderTarget {
         this.mViewportWidth = width;
         this.mViewportHeight = height;
         JFrame f = new JFrame("HPC");
+        f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         //f.setPreferredSize(new Dimension(1280,800));
 //        JPanel cPanel = new JPanel(new BorderLayout());
         JPanel cPanel = new JPanel();
@@ -33,6 +34,7 @@ public class HPCRenderTarget extends RenderTarget {
 //        cPanel.add(pane, BorderLayout.CENTER);
 
         drawTextArea.setFont(new Font("monospaced", Font.PLAIN, 12));
+        drawTextArea.setEditable(false);
         cPanel.add(drawTextArea);
 
             //pane.setText("1uh2qo3uehqo3uehaqwourhawoefbnawefabwoefuabwoef");
@@ -44,27 +46,16 @@ public class HPCRenderTarget extends RenderTarget {
 
     @Override
     public void draw(World w) {
-        int we = w.getWidth();
-        int hi = w.getHeight();
-        int x1 = r.nextInt(we);
-        int y1 = r.nextInt(hi);
-//        pane.setText(Integer.toString(x1));
-        System.out.println("width: "+we+",height: "+hi+",x:"+x1+",y:"+y1);
-        if (w.getCell(x1,y1)==Tile.FLOOR){
-            w.setCell(x1,y1,Tile.VOID);
-        } else if (w.getCell(x1,y1)==Tile.VOID){
-            w.setCell(x1,y1,Tile.WALL);
-        } else {
-            w.setCell(x1, y1, Tile.FLOOR);
-        }
+        w.onTick();
+
         StringBuilder line = new StringBuilder();
         for (int y = w.getCameraY() - mViewportHeight/2; y < w.getCameraY() + mViewportHeight/2; y++) {
             for (int x = w.getCameraX() - mViewportWidth/2; x < w.getCameraX() + mViewportWidth/2; x++) {
-                line.append(w.getCell(x, y));
+                line.append(w.renderCell(x, y));
             }
             line.append("\n");
         }
-//        pane.setText(line.toString());
+
         drawTextArea.setText(line.toString());
         long frameDuration = (System.currentTimeMillis() - mFpsTime);
         System.out.println("Took " + frameDuration + "ms - drawing at " + (1000L / frameDuration) );

@@ -1,8 +1,13 @@
 package space.sufficient.applebob;
 
+import space.sufficient.applebob.entity.Entity;
+import space.sufficient.applebob.entity.InputComponent;
+import space.sufficient.applebob.input.ConsoleInputManager;
+import space.sufficient.applebob.input.InputManager;
 import space.sufficient.applebob.render.*;
 import space.sufficient.applebob.world.*;
 
+import java.awt.event.KeyEvent;
 import java.util.Random;
 
 public class Launcher {
@@ -28,8 +33,24 @@ public class Launcher {
             }
         }
 
-        RenderTarget renderTarget = new ConsoleRenderTarget(200, 60, System.out);
-        Renderer renderer = new SimpleRenderer(renderTarget);
+        Tile[][] testTile = {{Tile.HEAD}, {Tile.BODY}};
+        Entity test = new Entity(testTile);
+        test.setX(world.getHeight()/2);
+        test.setY(world.getHeight()/2);
+        InputComponent testInputComponent = new InputComponent();
+        test.attachComponent(testInputComponent);
+
+
+        InputManager im = new ConsoleInputManager();
+        im.attach();
+        InputManager.setInstance(im);
+        im.register(KeyEvent.VK_W, testInputComponent);
+
+        world.addEntity(test);
+
+        RenderTarget renderTarget = new HPCRenderTarget(200, 60);
+        SimpleRenderer renderer = new SimpleRenderer(renderTarget);
+        renderer.setFPS(3);
         renderer.attach(world);
 
         Thread renderThread = new Thread(renderer);

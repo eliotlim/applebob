@@ -5,4 +5,6 @@ import space.sufficient.applebob.entity.Entity;
 public interface IGameWorld {
     void setFocus(Entity focus);
     Entity getFocus();
+
+    Tile renderCell(int x, int y);
 }

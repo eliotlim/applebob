@@ -2,7 +2,6 @@ package space.sufficient.applebob.render;
 
 import space.sufficient.applebob.world.World;
 
-import java.io.IOException;
 import java.io.PrintStream;
 
 public class ConsoleRenderTarget extends RenderTarget {
@@ -25,10 +24,11 @@ public class ConsoleRenderTarget extends RenderTarget {
         // Draw the world row by row, centered at cameraY and cameraX.
         System.out.println("\033[H\033[2J");
         System.out.flush();
+        w.onTick();
         for (int y = w.getCameraY() - mViewportHeight/2; y < w.getCameraY() + mViewportHeight/2; y++) {
             StringBuilder line = new StringBuilder();
             for (int x = w.getCameraX() - mViewportWidth/2; x < w.getCameraX() + mViewportWidth/2; x++) {
-                line.append(w.getCell(x, y));
+                line.append(w.renderCell(x, y));
             }
             mTargetStream.println(line);
         }
