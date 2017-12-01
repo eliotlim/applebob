@@ -8,6 +8,9 @@ import java.util.HashMap;
 
 public class Entity {
     private long entityID;
+
+    public boolean isPlayer = false;
+
     private ArrayList<EntityComponent> mComponents;
     private HashMap<String, Object> mProperties = new HashMap<>();
 

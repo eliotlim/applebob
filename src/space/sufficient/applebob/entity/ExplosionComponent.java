@@ -36,6 +36,9 @@ public class ExplosionComponent extends EntityComponent {
 
         for (Iterator iter = getEntity().getWorld().getmEntities().iterator(); iter.hasNext();){
             Entity bob = (Entity) iter.next();
+            if (!bob.isPlayer){
+                continue;
+            }
             if (bob.getX() >= x && bob.getX() < x+w && bob.getY() >= y && bob.getY()<y+h){
                 getEntity().getWorld().score1++;
             }

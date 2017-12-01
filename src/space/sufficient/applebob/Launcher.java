@@ -22,6 +22,8 @@ public class Launcher {
         test.setX(world.getHeight() / 2);
         test.setY(world.getHeight() / 2);
 
+        test.isPlayer = true;
+
         PlayerControlComponent testPlayerControlComponent = new PlayerControlComponent();
         test.attachComponent(testPlayerControlComponent);
 
