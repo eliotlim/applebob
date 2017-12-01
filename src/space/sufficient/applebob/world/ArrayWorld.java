@@ -26,7 +26,7 @@ public class ArrayWorld extends World {
 
     @Override
     public void setCell(int x, int y, Tile val) {
-
+        mWorld[y][x] = val;
     }
 
     @Override
