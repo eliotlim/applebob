@@ -99,7 +99,7 @@ public class HPCRenderTarget extends RenderTarget {
         }
         drawTextArea.setText(line.toString());
         long frameDuration = (System.currentTimeMillis() - mFpsTime);
-        System.out.println("Took " + frameDuration + "ms - drawing at " + (1000L / frameDuration) );
+        // System.out.println("Took " + frameDuration + "ms - drawing at " + (1000L / frameDuration) );
         mFpsTime = System.currentTimeMillis();
     }
 

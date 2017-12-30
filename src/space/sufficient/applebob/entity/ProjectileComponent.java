@@ -5,8 +5,10 @@ import space.sufficient.applebob.world.Tile;
 public class ProjectileComponent extends EntityComponent {
 
     private int mVelX = 0, mVelY = 0;
+    private Entity mFirer;
 
-    ProjectileComponent(int velX, int velY) {
+    ProjectileComponent(Entity firer, int velX, int velY) {
+        this.mFirer = firer;
         this.mVelX = velX;
         this.mVelY = velY;
     }
@@ -21,7 +23,7 @@ public class ProjectileComponent extends EntityComponent {
             Entity explosionEntity = new Entity(new Tile[explosionSize][explosionSize]);
             explosionEntity.setX(getEntity().getX() - explosionSize / 2);
             explosionEntity.setY(getEntity().getY() - explosionSize / 2);
-            ExplosionComponent explosionComponent = new ExplosionComponent(getEntity(), explosionSize);
+            ExplosionComponent explosionComponent = new ExplosionComponent(mFirer, explosionSize);
             explosionEntity.attachComponent(explosionComponent);
             // Spawn explosion
             getEntity().getWorld().addEntity(explosionEntity);

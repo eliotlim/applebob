@@ -37,28 +37,19 @@ public class ExplosionComponent extends EntityComponent {
         int h = getEntity().getHeight();
 
         for (Entity bob : getEntity().getWorld().getmEntities()) {
-            if (bob.getProperty("isplayer") != null && !(Boolean) bob.getProperty("isplayer") ) {
-                continue;
-            }
-            if (mFirer != bob && mFirer.getProperty("score") != null) {
-                if (bob.getX() >= x && bob.getX() < x + w && bob.getY() >= y && bob.getY() < y + h) {
-
-                    System.out.println("Score detected.");
-                    mFirer.setProperty("score", ((Integer) mFirer.getProperty("score")) + 1);
+            if (bob.getProperty("isplayer") != null && (Boolean) bob.getProperty("isplayer") ) {
+                if (mFirer.getProperty("score") != null) {
+                    if (bob.getX() >= x && bob.getX() < x + w && bob.getY() >= y && bob.getY() < y + h) {
+                        mFirer.setProperty("score", ((Integer) mFirer.getProperty("score")) + (bob == mFirer ? -1 : +1) );
+                    }
                 }
-            } else if (mFirer.getProperty("score") != null) {
-                System.out.println("Score detected.");
-                mFirer.setProperty("score", ((Integer) mFirer.getProperty("score")) - 1);
             }
-
         }
 
         if (mDuration > sDuration) {
-
-
             for (int i = x; i< x+w; i++){
                 for (int j = y; j< y+h; j++){
-                    getEntity().getWorld().setCell(i,j,Tile.FLOOR);
+                    getEntity().getWorld().setCell(i, j, Tile.FLOOR);
                 }
             }
             getEntity().getWorld().removeEntity(getEntity());

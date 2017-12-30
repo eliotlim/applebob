@@ -40,7 +40,7 @@ public class ShooterComponent extends InputComponent {
                 arrow.setY(getEntity().getY() + velY);
 
                 // TODO: Projectile Speed
-                arrow.attachComponent(new ProjectileComponent(velX, velY));
+                arrow.attachComponent(new ProjectileComponent(getEntity(), velX, velY));
                 getEntity().getWorld().addEntity(arrow);
             }
         }

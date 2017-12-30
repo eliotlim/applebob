@@ -86,9 +86,7 @@ public class Entity {
     }
 
     public Object getProperty(String property) {
-        if (mProperties.containsKey(property))
-            return mProperties.get(property);
-        else return null;
+        return mProperties.getOrDefault(property, null);
     }
 
 
